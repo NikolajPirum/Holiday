@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chopper i tasken</title>
+    <style>
+        #background-color{
+            background-color: rgb(185, 219, 221);
+        }
+        #label{
+            border: 1px;
+            border-color: black;
+            border-style:groove;
+            font-size: xx-large;
+            margin: 0 auto;
+            
+        }
+        #div{
+            display: flex;
+            justify-content: center;
+        }
+        #h{
+            display: flex;
+            justify-content: center;
+            background-color: rgb(236, 238, 131);
+        }
+       #p{
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            text-size-adjust: 30;
+        } 
+        tr{
+            size: 550cm;
+        }
+    </style>
+</head>
+<body id="background-color">
+    <h1 id="h">Holiday is  around the corner</h1>
+    <h2 id="h">How long tho?</h2>
+    <div id="div">
+        <label id="label">Choose a holiday to see the time left</label>
+    </div>
+    <br>
+    <div id="div">
+       <table id="table">
+            <tr><button id="mom">Moms day</button></tr>
+            <tr><button id="chris">Christmas</button></tr>
+            <tr><button id="newY">New Year</button></tr>
+            <tr><button id="autH">Autumn holiday</button></tr>
+            <tr><button id="winH">Winter holiday</button></tr>
+            <tr><button id="valD">Valentines day with lover</button></tr>
+            <tr><button id="valD2">Valentines day with second lover</button></tr>
+        </table>
+    </div>
+    <script>
+const momsDay = { name: "Mother's Day", date: new Date("2026-05-10") };
+const christmas = { name: "Christmas", date: new Date("2025-12-24") };
+const newYear = { name: "New Year", date: new Date("2025-12-31") };
+const autumnHoliday = { name: "Autumn Holiday", date: new Date("2025-10-13") };
+const winterHoliday = { name: "Winter Holiday", date: new Date("2025-12-12") };
+const valentinesDay = { name: "Valentines Day", date: new Date("2026-02-14") };
+
+        
+
+        function buttonOnClick(holiday){
+            const daysLeft = (holiday.date - new Date()) /1000 /60/60/24;
+             const p = document.createElement("p");
+             holidayName = holiday.name;
+             p.innerHTML = `Days left for ${holidayName}: ` + parseInt(daysLeft);
+             document.body.appendChild(p);
+             p.id = "p";
+        }
+
+        mom.addEventListener('click', () => buttonOnClick(momsDay));
+        chris.addEventListener('click', () => buttonOnClick(christmas));        
+        newY.addEventListener('click', () => buttonOnClick(newYear));        
+        autH.addEventListener('click', () => buttonOnClick(autumnHoliday));        
+        winH.addEventListener('click', () => buttonOnClick(winterHoliday));        
+        valD.addEventListener('click', () => buttonOnClick(valentinesDay));
+        valD2.addEventListener('click', () => alert("Error: only one lover allowed"));      
+
+    </script>
+</body>
+</html>
