@@ -25,7 +25,7 @@
             justify-content: center;
             background-color: rgb(236, 238, 131);
         }
-       #p{
+       #p,#countdown{
             display: flex;
             text-align: center;
             justify-content: center;
@@ -52,6 +52,8 @@
             <tr><button id="winH">Winter holiday</button></tr>
             <tr><button id="valD">Valentines day with lover</button></tr>
             <tr><button id="valD2">Valentines day with second lover</button></tr>
+            <tr><button id="nodeJs">Braingymnastics with with Anders</button></tr>
+            <p id="countdown"></p>
         </table>
     </div>
     <script>
@@ -61,16 +63,42 @@ const newYear = { name: "New Year", date: new Date("2025-12-31") };
 const autumnHoliday = { name: "Autumn Holiday", date: new Date("2025-10-13") };
 const winterHoliday = { name: "Winter Holiday", date: new Date("2025-12-12") };
 const valentinesDay = { name: "Valentines Day", date: new Date("2026-02-14") };
+const nodeJsObj = { name: "Braingymnastics with with Anders", date : new Date("2025-09-25 08:30:00")};
 
-        
+        function milliSecondsTohourMinnuteAndTime(millisonds){
+                    const hours = Math.floor(millisonds /1000/60/60);
+                    const minutes = Math.floor((millisonds % (1000*60*60)) / (1000*60));
+                    const seconds = Math.floor((millisonds % (1000*60)) / 1000);
+                return  hours + "h " + minutes + "m " + seconds + "s";
+        }
 
         function buttonOnClick(holiday){
             const daysLeft = (holiday.date - new Date()) /1000 /60/60/24;
+            console.log(daysLeft)
+            if(daysLeft<=1){
+                
+                const oneDay = setInterval(function(){
+                    const holidayTimeInMilli = holiday.date.getTime();
+                    console.log(holidayTimeInMilli)
+                    const currentTime = new Date().getTime();
+                    console.log(currentTime);
+                    const timeLeft = holidayTimeInMilli-currentTime;
+                    console.log(timeLeft)
+                
+                countdown.textContent = `Time left for ${holiday.name}: ` + milliSecondsTohourMinnuteAndTime(timeLeft);
+                document.body.appendChild(countdown);
+                 
+                if(timeLeft<=0){
+                    clearInterval(oneDay);
+                }
+
+                },1000)   
+            }else{
              const p = document.createElement("p");
-             holidayName = holiday.name;
-             p.innerHTML = `Days left for ${holidayName}: ` + parseInt(daysLeft);
+             p.innerHTML = `Days left for ${holiday.name}: ` + parseInt(daysLeft);
              document.body.appendChild(p);
              p.id = "p";
+            }    
         }
 
         mom.addEventListener('click', () => buttonOnClick(momsDay));
@@ -80,7 +108,7 @@ const valentinesDay = { name: "Valentines Day", date: new Date("2026-02-14") };
         winH.addEventListener('click', () => buttonOnClick(winterHoliday));        
         valD.addEventListener('click', () => buttonOnClick(valentinesDay));
         valD2.addEventListener('click', () => alert("Error: only one lover allowed"));      
-
+        nodeJs.addEventListener('click', () => buttonOnClick(nodeJsObj));
     </script>
 </body>
 </html>
